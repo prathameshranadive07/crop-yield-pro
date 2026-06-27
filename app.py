@@ -6,6 +6,7 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 
+
 # Paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "models", "model.pkl")
@@ -57,30 +58,23 @@ with tab2:
     st.subheader("Visual Insights")
 
     # Yield Distribution
-    st.write("### Yield Distribution")
-    fig1, ax1 = plt.subplots()
-    sns.histplot(df['Yield'], bins=50, kde=True, ax=ax1)
-    st.pyplot(fig1)
+    import numpy as np
 
-    # Top Crops
-    st.write("### Top Crops by Production")
-    top_crops = df.groupby('Crop')['Production'].sum().sort_values(ascending=False).head(10)
+st.write("### Yield Distribution (Log Scale)")
 
-    fig2, ax2 = plt.subplots()
-    top_crops.plot(kind='bar', ax=ax2)
-    st.pyplot(fig2)
+fig1, ax1 = plt.subplots()
 
-    # Area vs Production
-    st.write("### Area vs Production")
-    fig3, ax3 = plt.subplots()
-    sns.scatterplot(x='Area', y='Production', data=df, ax=ax3)
-    st.pyplot(fig3)
+sns.histplot(
+    np.log1p(df['Yield']),
+    bins=40,
+    kde=True,
+    ax=ax1
+)
 
-    model_step = model.named_steps['model']
-    importances = model_step.feature_importances_
+ax1.set_xlabel("log(1 + Yield)")
+ax1.set_ylabel("Count")
 
-    st.write("Feature Importance available (advanced)")
-    st.download_button("Download Data", df.to_csv(index=False))
+st.pyplot(fig1)
 
 
 # ------------------ TAB 3 ------------------
