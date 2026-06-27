@@ -42,9 +42,9 @@ def train():
     numerical = ['Area']
 
     preprocessor = ColumnTransformer([
-        ('cat', OneHotEncoder(handle_unknown='ignore'), categorical),
-        ('num', 'passthrough', numerical)
-    ])
+    ('cat', OneHotEncoder(handle_unknown='ignore', sparse_output=True), categorical),
+    ('num', 'passthrough', numerical)
+])
 
     # MODELS DICTIONARY
     models = {
@@ -52,7 +52,15 @@ def train():
         "Ridge": Ridge(alpha=1.0),
         "Lasso": Lasso(alpha=0.1),
         "Decision Tree": DecisionTreeRegressor(max_depth=10),
-        "Random Forest": RandomForestRegressor(n_estimators=50, n_jobs=-1),
+        "Random Forest": RandomForestRegressor(
+    n_estimators=100,
+    max_depth=20,
+    min_samples_split=10,
+    min_samples_leaf=5,
+    max_features="sqrt",
+    random_state=42,
+    n_jobs=-1
+),
         "XGBoost": XGBRegressor(n_estimators=100, n_jobs=-1)
     }
 
