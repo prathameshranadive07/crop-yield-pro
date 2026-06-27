@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environments
+venv/
+venv311/
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Environment Variables
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Large model files (we'll regenerate these later)
+models/pipeline.pkl
+models/best_model.pkl
