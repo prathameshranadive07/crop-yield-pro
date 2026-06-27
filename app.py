@@ -8,7 +8,7 @@ import streamlit as st
 
 # Paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "models", "pipeline.pkl")
+MODEL_PATH = os.path.join(BASE_DIR, "models", "best_model.pkl")
 DATA_PATH = os.path.join(BASE_DIR, "data", "crop_production.csv")
 
 # Load data & model
